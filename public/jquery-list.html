@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>jQuery Dynamic List - Mind Luster Task</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
+        background: #88898b;
+        min-height: 100vh;
+        padding: 40px 20px;
+      }
+
+      .container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: white;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      }
+
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 20px;
+        color: #64748b;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        padding: 8px 12px;
+        border-radius: 8px;
+      }
+
+      .back-link:hover {
+        color: #475569;
+        background: #f8fafc;
+      }
+
+      .back-link::before {
+        content: "←";
+        font-size: 1.2rem;
+      }
+
+      h1 {
+        color: #1e293b;
+        margin-bottom: 10px;
+        font-size: 2rem;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        color: #64748b;
+        margin-bottom: 30px;
+        font-size: 0.9rem;
+      }
+
+      .input-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      input {
+        flex: 1;
+        padding: 12px 16px;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #64748b;
+        background: white;
+      }
+
+      .add-btn {
+        padding: 12px 24px;
+        background: #64748b;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        min-width: 120px;
+      }
+
+      .add-btn:hover {
+        background: #475569;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(100, 116, 139, 0.3);
+      }
+
+      .add-btn:active {
+        transform: translateY(0);
+      }
+
+      .error {
+        color: #dc2626;
+        margin-bottom: 15px;
+        padding: 10px 16px;
+        background: #fee2e2;
+        border-radius: 8px;
+        display: none;
+        font-weight: 500;
+        border: 1px solid #fecaca;
+      }
+
+      #itemList {
+        margin-top: 30px;
+      }
+
+      .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: #f8fafc;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        transform-origin: center;
+      }
+
+      .list-item:hover {
+        background: #f1f5f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transform: translateX(5px);
+      }
+
+      .list-item.deleting {
+        opacity: 0;
+        transform: scale(0.9) translateX(-20px);
+        transition: all 0.35s cubic-bezier(0.4, 0, 1, 1);
+      }
+
+      .list-item span {
+        color: #334155;
+        font-size: 1rem;
+      }
+
+      .delete-btn {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.9rem;
+      }
+
+      .delete-btn:hover {
+        background: #dc2626;
+        transform: scale(1.05);
+      }
+
+      .delete-icon {
+        font-size: 1rem;
+      }
+
+      .empty-state {
+        text-align: center;
+        padding: 40px 20px;
+        color: #94a3b8;
+        font-style: italic;
+      }
+
+      .badge {
+        display: inline-block;
+        background: #8b5cf6;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="/" class="back-link">Back to Kanban Board</a>
+
+      <h1>Dynamic List</h1>
+
+      <div class="input-group">
+        <input
+          type="text"
+          id="itemInput"
+          placeholder="Enter a new item"
+          autocomplete="off"
+        />
+        <button class="add-btn" id="addBtn">Add Item</button>
+      </div>
+
+      <div class="error" id="errorMsg">Please enter an item</div>
+
+      <div id="itemList">
+        <div class="list-item">
+          <span>Item 1</span>
+          <button class="delete-btn">Delete</button>
+        </div>
+        <div class="list-item">
+          <span>Item 2</span>
+          <button class="delete-btn">Delete</button>
+        </div>
+        <div class="list-item">
+          <span>Item 3</span>
+          <button class="delete-btn">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        function loadItems() {
+          const savedItems = localStorage.getItem("dynamicListItems");
+          if (savedItems) {
+            const items = JSON.parse(savedItems);
+            if (items.length > 0) {
+              $("#itemList").empty();
+              items.forEach(function (itemText) {
+                addItemToList(itemText, false);
+              });
+            }
+          }
+        }
+
+        function saveItems() {
+          const items = [];
+          $("#itemList .list-item span").each(function () {
+            items.push($(this).text());
+          });
+          localStorage.setItem("dynamicListItems", JSON.stringify(items));
+        }
+
+        function addItemToList(text, animate = true) {
+          const newItem = $('<div class="list-item"></div>');
+          if (animate) {
+            newItem.css({
+              opacity: "0",
+              transform: "translateY(-20px)",
+            });
+          }
+
+          const itemText = $("<span></span>").text(text);
+          const deleteBtn = $('<button class="delete-btn"></button>').html(
+            "Delete",
+          );
+
+          newItem.append(itemText).append(deleteBtn);
+          $("#itemList").append(newItem);
+
+          if (animate) {
+            setTimeout(function () {
+              newItem.css({
+                opacity: "1",
+                transform: "translateY(0)",
+              });
+            }, 10);
+          }
+        }
+
+        $("#addBtn").on("click", function () {
+          const inputVal = $("#itemInput").val().trim();
+
+          if (inputVal === "") {
+            $("#errorMsg").fadeIn(200).delay(2000).fadeOut(300);
+            $("#itemInput").focus();
+            return;
+          }
+
+          if ($("#itemList").find(".empty-state").length > 0) {
+            $("#itemList").empty();
+          }
+
+          addItemToList(inputVal, true);
+          saveItems();
+
+          $("#itemInput").val("").focus();
+        });
+
+        $("#itemInput").on("keydown", function (e) {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            $("#addBtn").click();
+          }
+        });
+
+        $(document).on("click", ".delete-btn", function (e) {
+          e.preventDefault();
+          const $item = $(this).parent();
+
+          $item.addClass("deleting");
+
+          setTimeout(function () {
+            $item.slideUp(200, function () {
+              $(this).remove();
+
+              const items = [];
+              $("#itemList .list-item").each(function () {
+                items.push($(this).find("span").text());
+              });
+              localStorage.setItem("dynamicListItems", JSON.stringify(items));
+              if ($("#itemList .list-item").length === 0) {
+                $("#itemList").html(
+                  '<div class="empty-state" style="display:none;">No items yet. Add your first item!</div>',
+                );
+                $(".empty-state").fadeIn(300);
+              }
+            });
+          }, 350);
+        });
+
+        loadItems();
+
+        $("#itemInput").focus();
+      });
+    </script>
+  </body>
+</html>

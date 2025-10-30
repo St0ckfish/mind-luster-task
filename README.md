@@ -1,29 +1,134 @@
-# Create T3 App
+# Kanban Task Board - Mind Luster
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A beautiful, feature-rich Kanban-style task management dashboard built with Next.js, TypeScript, Material UI, Zustand, and React Query.
 
-## What's next? How do I make an app with this?
+## ✨ Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+### Kanban Board
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- **4 Columns**: Backlog, In Progress, Review, and Done
+- **Drag & Drop**: Smooth animations when moving tasks between columns
+- **CRUD Operations**: Create, Read, Update, and Delete tasks
+- **Search**: Search tasks by title or description
+- **Pagination**: Load more functionality for better performance
+- **React Query Caching**: Efficient data fetching and caching
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+### Dynamic List (Bonus)
 
-## Learn More
+- Add items to a dynamic list
+- Validation with error messages that fade out after 2 seconds
+- Delete items with smooth fade-out animations
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- **Frontend Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **State Management**: Zustand
+- **Data Fetching**: @tanstack/react-query (React Query)
+- **UI Library**: Material UI (@mui/material)
+- **Icons**: lucide-react
+- **Drag & Drop**: @hello-pangea/dnd
+- **API**: json-server (local mock API)
+- **Package Manager**: pnpm
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+## 📦 Installation
 
-## How do I deploy this?
+1. Clone the repository:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+git clone <repository-url>
+cd mind-luster-task
+```
+
+2. Install dependencies:
+
+```bash
+pnpm install
+```
+
+## 🚀 Running the Application
+
+Run both the Next.js dev server and json-server concurrently:
+
+```bash
+pnpm dev
+```
+
+This will start:
+
+- Next.js app on http://localhost:3000
+- JSON Server API on http://localhost:4000
+
+Alternatively, you can run them separately:
+
+```bash
+# Terminal 1 - Next.js
+pnpm dev:next
+
+# Terminal 2 - JSON Server
+pnpm dev:api
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx           # Root layout with providers
+│   └── page.tsx             # Main page with Kanban board
+├── components/
+│   ├── DynamicList.tsx      # Bonus: Dynamic list component
+│   ├── KanbanBoard.tsx      # Main Kanban board with drag & drop
+│   ├── KanbanColumn.tsx     # Individual column component
+│   ├── SearchBar.tsx        # Search functionality
+│   ├── TaskCard.tsx         # Individual task card
+│   ├── TaskModal.tsx        # Create/Edit task modal
+│   └── providers/
+│       ├── MuiProvider.tsx  # Material UI theme provider
+│       └── QueryProvider.tsx # React Query provider
+├── hooks/
+│   └── useTasks.ts          # React Query hooks for tasks
+├── lib/
+│   └── api/
+│       └── taskApi.ts       # API functions
+├── store/
+│   ├── modalStore.ts        # Zustand store for modal state
+│   └── searchStore.ts       # Zustand store for search state
+├── types/
+│   └── task.ts              # TypeScript types
+└── styles/
+    └── globals.css          # Global styles
+```
+
+## 🎯 Features Implementation
+
+### Task Schema
+
+```typescript
+{
+  id: string;
+  title: string;
+  description: string;
+  column: "backlog" | "in-progress" | "review" | "done";
+}
+```
+
+### API Endpoints (json-server)
+
+- `GET /tasks` - Get all tasks
+- `GET /tasks/:id` - Get a specific task
+- `POST /tasks` - Create a new task
+- `PATCH /tasks/:id` - Update a task
+- `DELETE /tasks/:id` - Delete a task
+
+## 📝 Available Scripts
+
+- `pnpm dev` - Run both Next.js and json-server
+- `pnpm dev:next` - Run only Next.js
+- `pnpm dev:api` - Run only json-server
+- `pnpm build` - Build for production
+- `pnpm start` - Start production server
+- `pnpm lint` - Run ESLint
+- `pnpm typecheck` - Run TypeScript type checking
+- `pnpm format:check` - Check code formatting
+- `pnpm format:write` - Format code

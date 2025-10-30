@@ -1,0 +1,76 @@
+{
+  "tasks": [
+    {
+      "id": "1",
+      "title": "Go to the gym",
+      "description": "Complete the full-body workout for today",
+      "column": "in-progress"
+    },
+    {
+      "id": "2",
+      "title": "Read Quran",
+      "description": "Read 5 pages of the Quran",
+      "column": "in-progress"
+    },
+    {
+      "id": "3",
+      "title": "Prepare breakfast",
+      "description": "Make a healthy breakfast for the day",
+      "column": "done"
+    },
+    {
+      "id": "4",
+      "title": "Drink 4 liters of water",
+      "description": "Ensure I drink enough water throughout the day",
+      "column": "done"
+    },
+    {
+      "id": "5",
+      "title": "Take a walk",
+      "description": "Take a 30-minute walk in the evening",
+      "column": "backlog"
+    },
+    {
+      "id": "6",
+      "title": "Practice meditation",
+      "description": "Spend 10 minutes in meditation for mindfulness",
+      "column": "backlog"
+    },
+    {
+      "id": "7",
+      "title": "Study for an hour",
+      "description": "Spend an hour studying programming or any related topic",
+      "column": "review"
+    },
+    {
+      "id": "8",
+      "title": "Read a book",
+      "description": "Read at least one chapter of a book",
+      "column": "review"
+    },
+    {
+      "id": "9",
+      "title": "Plan tomorrow's tasks",
+      "description": "Prepare the to-do list for the next day",
+      "column": "done"
+    },
+    {
+      "id": "10",
+      "title": "Call family",
+      "description": "Call and check on family members",
+      "column": "backlog"
+    },
+    {
+      "id": "11",
+      "title": "Stretching exercises",
+      "description": "Do 10 minutes of stretching exercises",
+      "column": "in-progress"
+    },
+    {
+      "id": "12",
+      "title": "Organize workspace",
+      "description": "Clean and organize the workspace for productivity",
+      "column": "done"
+    }
+  ]
+}

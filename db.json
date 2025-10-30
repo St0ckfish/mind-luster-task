@@ -7,10 +7,10 @@
       "column": "in-progress"
     },
     {
-      "id": "2",
       "title": "Read Quran",
       "description": "Read 5 pages of the Quran",
-      "column": "in-progress"
+      "column": "review",
+      "id": "2"
     },
     {
       "id": "3",
@@ -43,10 +43,10 @@
       "column": "review"
     },
     {
-      "id": "8",
       "title": "Read a book",
       "description": "Read at least one chapter of a book",
-      "column": "review"
+      "column": "in-progress",
+      "id": "8"
     },
     {
       "id": "9",
@@ -61,10 +61,10 @@
       "column": "backlog"
     },
     {
-      "id": "11",
       "title": "Stretching exercises",
       "description": "Do 10 minutes of stretching exercises",
-      "column": "in-progress"
+      "column": "in-progress",
+      "id": "11"
     },
     {
       "id": "12",

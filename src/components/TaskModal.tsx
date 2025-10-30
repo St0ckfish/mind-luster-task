@@ -26,8 +26,8 @@ export const TaskModal = () => {
   const updateTask = useUpdateTask();
   const { data: existingTask } = useTask(taskId ?? "");
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
   const [column, setColumn] = useState<ColumnType>("backlog");
 
   useEffect(() => {
@@ -54,22 +54,22 @@ export const TaskModal = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!title.trim()) {
+    if (!title?.trim()) {
       return;
     }
 
     if (mode === "create") {
       await createTask.mutateAsync({
-        title: title.trim(),
-        description: description.trim(),
+        title: title?.trim() || "",
+        description: description?.trim() || "",
         column,
       });
     } else if (mode === "edit" && taskId) {
       await updateTask.mutateAsync({
         id: taskId,
         task: {
-          title: title.trim(),
-          description: description.trim(),
+          title: title?.trim() || "",
+          description: description?.trim() || "",
           column,
         },
       });
@@ -122,7 +122,7 @@ export const TaskModal = () => {
             type="submit"
             variant="contained"
             disabled={
-              !title.trim() || createTask.isPending || updateTask.isPending
+              !title?.trim() || createTask.isPending || updateTask.isPending
             }
           >
             {createTask.isPending || updateTask.isPending

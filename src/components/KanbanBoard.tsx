@@ -55,6 +55,10 @@ export const KanbanBoard = () => {
     }
 
     if (destination.droppableId !== source.droppableId) {
+      const movedTask = localTasks.find((task) => task.id === draggableId);
+
+      if (!movedTask) return;
+
       setLocalTasks((prev) =>
         prev.map((task) =>
           task.id === draggableId
@@ -66,6 +70,8 @@ export const KanbanBoard = () => {
       updateTask.mutate({
         id: draggableId,
         task: {
+          title: movedTask.title,
+          description: movedTask.description,
           column: destination.droppableId as ColumnType,
         },
       });

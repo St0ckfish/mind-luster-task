@@ -36,7 +36,7 @@ export const taskApi = {
 
   updateTask: async (id: string, task: UpdateTaskDto): Promise<Task> => {
     const response = await fetch(`${API_URL}/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

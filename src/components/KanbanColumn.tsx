@@ -65,7 +65,7 @@ export const KanbanColumn = ({ title, column, tasks }: KanbanColumnProps) => {
         backgroundColor: "#f8fafc",
         borderRadius: 2,
         p: 2,
-        height: "700px",
+        height: { xs: "500px", sm: "600px", md: "700px" },
         display: "flex",
         flexDirection: "column",
       }}

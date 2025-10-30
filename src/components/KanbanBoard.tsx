@@ -90,9 +90,10 @@ export const KanbanBoard = () => {
           gridTemplateColumns: {
             xs: "1fr",
             sm: "repeat(2, 1fr)",
-            md: "repeat(4, 1fr)",
+            lg: "repeat(4, 1fr)",
           },
-          gap: 3,
+          gap: { xs: 2, sm: 2.5, md: 3 },
+          pb: { xs: 2, sm: 3 },
         }}
       >
         {columns.map((column) => (
